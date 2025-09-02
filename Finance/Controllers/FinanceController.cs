@@ -10,12 +10,10 @@ namespace Finance.Controllers
     public class FinanceController : Controller
     {
         private readonly FinanceContext _context;
-        private readonly IFinance _iFinance;
 
-        public FinanceController(FinanceContext context, IFinance iFinance)
+        public FinanceController(FinanceContext context)
         {
             _context = context;
-            _iFinance = iFinance;
         }
 
         [HttpGet]

@@ -24,8 +24,4 @@ public partial class Customer
     public string? Email { get; set; }
 
     public DateTime? DateBecameCustomer { get; set; }
-
-    public virtual ICollection<Account> Accounts { get; } = new List<Account>();
-
-    public virtual CustomerType? Customertype { get; set; }
 }

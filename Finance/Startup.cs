@@ -17,12 +17,12 @@ namespace Finance
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<FinanceContext>(options => options.UseSqlServer(Configuration.GetConnectionString("FinanceConnection")));
+            //services.AddDbContext<FinanceContext>(options => options.UseSqlServer(Configuration.GetConnectionString("FinanceConnection")));
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Finance", Version = "v1" });
-            });
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Finance", Version = "v1" });
+            //});
 
             services.AddControllersWithViews();
         }
@@ -33,8 +33,8 @@ namespace Finance
             if (env.IsDevelopment() || env.IsProduction())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Finance v1"));
+                //app.UseSwagger();
+                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Finance v1"));
             }
             app.UseCors(builder => builder
             .AllowAnyOrigin()

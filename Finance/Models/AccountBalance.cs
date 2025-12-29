@@ -16,6 +16,4 @@ public partial class AccountBalance
     public decimal? NewBalance { get; set; }
 
     public DateTime? TransactionDate { get; set; }
-
-    public virtual Account? Account { get; set; }
 }

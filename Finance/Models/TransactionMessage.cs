@@ -14,8 +14,4 @@ public partial class TransactionMessage
     public int? CounterpartyId { get; set; }
 
     public string? TransactionTypeCode { get; set; }
-
-    public virtual Account? Account { get; set; }
-
-    public virtual Party? Counterparty { get; set; }
 }

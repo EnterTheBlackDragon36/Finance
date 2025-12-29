@@ -24,17 +24,17 @@ namespace Finance.Controllers
         }
         #region Get Banking Information
         [HttpGet]
-        [Route("api/Finance/GetCustomerById/{id:guid}")]
-        public ActionResult getCustomerById(Guid id)
+        [Route("api/Finance/GetCustomerById/{id}")]
+        public ActionResult getCustomerById(int id)
         {
-            var _customer = _context.Customers.Where(c => c.CustomerId == id).SingleOrDefault();
+            var _customer = _context.Customers.Where(c => c.Id == id).SingleOrDefault();
             string customer = JsonConvert.SerializeObject(_customer);
             return Ok(customer);
         }
 
         [HttpGet]
-        [Route("api/Finance/GetCustomerAccountById/{id:guid}")]
-        public ActionResult getCustomerAccountById(Guid id)
+        [Route("api/Finance/GetCustomerAccountById/{id}")]
+        public ActionResult getCustomerAccountById(int id)
         {
             var _account = _context.Accounts.Where(c => c.AccountId == id).FirstOrDefault();
             string account = JsonConvert.SerializeObject(_account);
@@ -42,10 +42,10 @@ namespace Finance.Controllers
         }
 
         [HttpGet]
-        [Route("api/Finance/GetCustomerAccountBalanceById/{id:guid}")]
-        public ActionResult getCustomerAccountBalanceById(Guid id)
+        [Route("api/Finance/GetCustomerAccountBalanceById/{id}")]
+        public ActionResult getCustomerAccountBalanceById(int id)
         {
-            var _accountBalance = _context.AccountBalances.Where(c => c.AccountId == id).FirstOrDefault();
+            var _accountBalance = _context.AccountBalances.Where(c => c.Id == id).FirstOrDefault();
             string accountBalance = JsonConvert.SerializeObject(_accountBalance);
             return Ok(accountBalance);
         }
@@ -61,7 +61,7 @@ namespace Finance.Controllers
 
         [HttpGet]
         [Route("api/Finance/GetCustomerBankCardById/{id:guid}")]
-        public ActionResult getCustomerBankCardById(Guid id)
+        public ActionResult getCustomerBankCardById(int id)
         {
             var _bankCard = _context.BankCards.Where(c => c.AccountId == id).FirstOrDefault();
             string bankCard = JsonConvert.SerializeObject(_bankCard);
@@ -69,10 +69,10 @@ namespace Finance.Controllers
         }
 
         [HttpGet]
-        [Route("api/Finance/GetCustomerBankTransactionById/{id:guid}")]
-        public ActionResult getCustomerBankTransactionById(Guid id)
+        [Route("api/Finance/GetCustomerBankTransactionById/{id}")]
+        public ActionResult getCustomerBankTransactionById(int id)
         {
-            var _transactions = _context.Transactions.Where(c => c.AccountId == id).FirstOrDefault();
+            var _transactions = _context.Transactions.Where(c => c.TransactionId == id).FirstOrDefault();
             string transactions = JsonConvert.SerializeObject(_transactions);
             return Ok(transactions);
         }
@@ -88,9 +88,9 @@ namespace Finance.Controllers
 
         [HttpGet]
         [Route("api/Finance/GetCustomerPartyById/{id}")]
-        public ActionResult getCustomerPartyById(int customerId)
+        public ActionResult getCustomerPartyById(int partyId)
         {
-            var _custParty = _context.Parties.Where(c => c.Id == customerId).FirstOrDefault();
+            var _custParty = _context.Parties.Where(c => c.PartyId == partyId).FirstOrDefault();
             string custParty = JsonConvert.SerializeObject(_custParty);
             return Ok(custParty);
         }
@@ -107,12 +107,12 @@ namespace Finance.Controllers
 
         #region Edit Banking Information
         [HttpPut]
-        [Route("api/Finance/EditCustomerById/{id:guid}")]
-        public ActionResult EditCustomerById([FromBody] JsonElement customer, Guid id)
+        [Route("api/Finance/EditCustomerById/{id}")]
+        public ActionResult EditCustomerById([FromBody] JsonElement customer, int id)
         {
             if (!String.IsNullOrEmpty(customer.ToString()))
             {
-                var _cust = _context.Customers.Where(c => c.CustomerId == id).FirstOrDefault();
+                var _cust = _context.Customers.Where(c => c.Id == id).FirstOrDefault();
                 var custDS = JsonConvert.DeserializeObject<Customer>(customer.ToString());
                 if (_cust != null)
                 {
@@ -121,7 +121,6 @@ namespace Finance.Controllers
                     _cust.Lastname = custDS.Lastname;
                     _cust.Suffix = custDS.Suffix;
                     _cust.Email = custDS.Email;
-                    _cust.Customertype = custDS.Customertype;
                     _cust.CustomertypeId = custDS.CustomertypeId;
                     _cust.DateBecameCustomer = custDS.DateBecameCustomer;
                     _cust.Phone = custDS.Phone;
@@ -138,8 +137,8 @@ namespace Finance.Controllers
         }
 
         [HttpPut]
-        [Route("api/Finance/EditCustomerAccountById/{id:guid}")]
-        public ActionResult EditCustomerAccountById([FromBody] JsonElement account, Guid id)
+        [Route("api/Finance/EditCustomerAccountById/{id}")]
+        public ActionResult EditCustomerAccountById([FromBody] JsonElement account, int id)
         {
             if (!String.IsNullOrEmpty(account.ToString()))
             {
@@ -147,8 +146,7 @@ namespace Finance.Controllers
                 var acctDS = JsonConvert.DeserializeObject<Account>(account.ToString());
                 if (_acct != null)
                 {
-                    _acct.CustomerName = acctDS.CustomerName;
-                    _acct.Status = acctDS.Status;
+                    _acct.AccountHolder = acctDS.AccountHolder;
                     _acct.LastActivity = acctDS.LastActivity;
                     _context.Update(_acct);
                     _context.SaveChanges();
@@ -212,8 +210,8 @@ namespace Finance.Controllers
         }
 
         [HttpPut]
-        [Route("api/Finance/EditCustomerBankCardById/{id:guid}")]
-        public ActionResult EditCustomerBankCardById([FromBody] JsonElement bankCard, Guid id)
+        [Route("api/Finance/EditCustomerBankCardById/{id}")]
+        public ActionResult EditCustomerBankCardById([FromBody] JsonElement bankCard, int id)
         {
             if (string.IsNullOrEmpty(bankCard.ToString()))
             {
@@ -240,18 +238,16 @@ namespace Finance.Controllers
         }
 
         [HttpPut]
-        [Route("api/Finance/EditCustomerBankTransactionById/{id:guid}")]
-        public ActionResult EditCustomerBankTransactionById([FromBody] JsonElement bankTran, Guid id)
+        [Route("api/Finance/EditCustomerBankTransactionById/{id}")]
+        public ActionResult EditCustomerBankTransactionById([FromBody] JsonElement bankTran, int id)
         {
             if (!String.IsNullOrEmpty(bankTran.ToString()))
             {
-                var _bankTran = _context.Transactions.Where(t => t.AccountId == id).FirstOrDefault();
+                var _bankTran = _context.Transactions.Where(t => t.TransactionId == id).FirstOrDefault();
                 var bankTranDS = JsonConvert.DeserializeObject<Transaction>(bankTran.ToString());
                 if (_bankTran != null)
                 {
-                    _bankTran.Account = bankTranDS.Account;
-                    _bankTran.TransactionDate = bankTranDS.TransactionDate;
-                    _bankTran.Type = bankTranDS.Type;
+                    _bankTran.TransactionTypeCode = bankTranDS.TransactionTypeCode;
                     _context.Update(_bankTran);
                     _context.SaveChanges();
                 }
@@ -275,7 +271,7 @@ namespace Finance.Controllers
                 {
                     _tranMsg.Message = tranMsgDS.Message;
                     _tranMsg.TransactionTypeCode = tranMsgDS.TransactionTypeCode;
-                    _tranMsg.Counterparty = tranMsgDS.Counterparty;
+                    _tranMsg.CounterpartyId = tranMsgDS.CounterpartyId;
                     _context.Update(_tranMsg);
                     _context.SaveChanges();
                 }
@@ -289,18 +285,17 @@ namespace Finance.Controllers
 
         [HttpPut]
         [Route("api/Finance/EditCustomerPartyById/{id}")]
-        public ActionResult EditCustomerPartyById([FromBody] JsonElement party, int customerId)
+        public ActionResult EditCustomerPartyById([FromBody] JsonElement party, int partyid)
         {
             if (!String.IsNullOrEmpty(party.ToString()))
             {
-                var _party = _context.Parties.Where(p => p.Id == customerId).FirstOrDefault();
+                var _party = _context.Parties.Where(p => p.PartyId == partyid).FirstOrDefault();
                 var partyDS = JsonConvert.DeserializeObject<Party>(party.ToString());
                 if (_party != null)
                 {
-                    _party.Name = partyDS.Name;
-                    _party.Email = partyDS.Email;
-                    _party.Details = partyDS.Details;
-                    _party.Phone = partyDS.Phone;
+                    _party.PartyName = partyDS.PartyName;
+                    _party.PartyEmail = partyDS.PartyEmail;
+                    _party.PartyPhone = partyDS.PartyPhone;
                     _context.Update(_party);
                     _context.SaveChanges();
                 }

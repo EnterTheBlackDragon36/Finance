@@ -5,13 +5,7 @@ namespace Finance.Models;
 
 public partial class Transaction
 {
-    public int Id { get; set; }
+    public int TransactionId { get; set; }
 
-    public Guid? AccountId { get; set; }
-
-    public string? Type { get; set; }
-
-    public DateTime? TransactionDate { get; set; }
-
-    public virtual Account? Account { get; set; }
+    public int? TransactionTypeCode { get; set; }
 }

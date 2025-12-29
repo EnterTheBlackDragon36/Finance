@@ -5,15 +5,17 @@ namespace Finance.Models;
 
 public partial class Account
 {
-    public int Id { get; set; }
+    public int AccountId { get; set; }
 
-    public Guid AccountId { get; set; }
+    public long? AccountNumber { get; set; }
 
-    public int CustomerId { get; set; }
+    public int? AccountHolderId { get; set; }
 
-    public string CustomerName { get; set; } = null!;
+    public string? AccountName { get; set; }
 
-    public string Status { get; set; } = null!;
+    public decimal? CurrentBalance { get; set; }
+
+    public string? OtherDetails { get; set; }
 
     public DateTime? DateOpened { get; set; }
 
@@ -21,9 +23,7 @@ public partial class Account
 
     public DateTime? LastActivity { get; set; }
 
-    public long AccountNum { get; set; }
+    public virtual AccountHolder? AccountHolder { get; set; }
 
-    public virtual ICollection<BankCard> BankCards { get; } = new List<BankCard>();
-
-    public virtual Customer Customer { get; set; } = null!;
+    public virtual ICollection<CardNumber> CardNumbers { get; } = new List<CardNumber>();
 }

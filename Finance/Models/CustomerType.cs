@@ -12,6 +12,4 @@ public partial class CustomerType
     public string? Customertype1 { get; set; }
 
     public string? Description { get; set; }
-
-    public virtual ICollection<Customer> Customers { get; } = new List<Customer>();
 }

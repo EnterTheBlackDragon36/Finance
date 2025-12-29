@@ -7,7 +7,7 @@ public partial class BankCard
 {
     public int Id { get; set; }
 
-    public Guid? AccountId { get; set; }
+    public int? AccountId { get; set; }
 
     public string? Nameoncard { get; set; }
 
@@ -15,15 +15,17 @@ public partial class BankCard
 
     public string? Cardtype { get; set; }
 
-    public bool? Securitychip { get; set; }
+    public bool? TapEnabled { get; set; }
+
+    public bool? SecurityChip { get; set; }
 
     public int? Csv { get; set; }
 
     public DateTime? Expirationdate { get; set; }
 
-    public int? Expirationmonth { get; set; }
+    public string? Expirationmonth { get; set; }
 
-    public int? Expirationyear { get; set; }
+    public string? Expirationyear { get; set; }
 
     public DateTime? Issuedate { get; set; }
 
